@@ -8,7 +8,6 @@ const KukiAccordion = (() => {
     /* =========== private methods =========== */
 
     function cacheDOM() {
-
         Accordion = document.querySelectorAll('.accordion');
         Panel = document.querySelectorAll('.panel');
     }
@@ -45,24 +44,64 @@ const KukiAccordion = (() => {
         let description = targetClicked.nextElementSibling;
 
         if (description.style.maxHeight) {
-            description.style.maxHeight = null;
-            event.currentTarget.classList.remove('active');
-
+            // description.style.maxHeight = null;
+            // event.currentTarget.classList.remove('active');
+            closeAccordion(targetClicked);
         } else {
 
             for (let i = 0; i < Accordion.length; i++) {
-                Accordion[i].classList.remove('active');
-                Accordion[i].nextElementSibling.style.maxHeight = null;
+                // Accordion[i].classList.remove('active');
+                // Accordion[i].nextElementSibling.style.maxHeight = null;
+
+                closeAccordion(Accordion[i]);
             }
 
-            event.currentTarget.classList.add('active');
-            description.style.maxHeight = description.scrollHeight + 'px';
+            // open
+            openAccordion(targetClicked);
+            // event.currentTarget.classList.add('active');
+            // description.style.maxHeight = description.scrollHeight + 'px';
         }
+    }
+
+    /**
+     * @param element {Element}
+     */
+    function openAccordion(element) {
+        element.classList.add('active');
+        const panel = element.nextElementSibling;
+        const panelHeight = panel.scrollHeight;
+
+        panel.animate([
+            {maxHeight: getComputedStyle(panel).maxHeight},
+            {maxHeight: panelHeight + 'px'}
+        ], 5000);
+    }
+
+    /**
+     * @param element {Element}
+     */
+    function closeAccordion(element) {
+        element.classList.remove('active');
+        const panel = element.nextElementSibling;
+
+        panel.animate([
+            {maxHeight: getComputedStyle(panel).maxHeight},
+            {maxHeight: 0}
+        ],5000);
     }
 
     /* =========== public methods =========== */
 
-    function init() {
+    function init(options) {
+
+        const defaults = {
+            accordionClass : 'accordion',
+            accordionContentClass : 'panel',
+            activeClass : 'active'
+        };
+
+
+
         cacheDOM();
         setupEventListeners();
         removeActive();

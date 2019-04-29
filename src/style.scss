@@ -1,18 +1,16 @@
-.accordion {
-  position: relative;
-  display: block;
-}
-h3 {
-  color: red;
-}
-.panel {
-  max-height: 0;
-  overflow: hidden;
-  //transition: all 0.4s;
-
-
-
-  &.active {
-    max-height: fit-content;
-  }
-}
+//.accordion {
+//  position: relative;
+//  display: block;
+//}
+//h3 {
+//  color: red;
+//}
+//.panel {
+//  max-height: 0;
+//  overflow: hidden;
+//  transition: all 0.4s;
+//
+//  &.active {
+//    max-height: fit-content;
+//  }
+//}
