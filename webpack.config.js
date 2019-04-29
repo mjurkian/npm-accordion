@@ -1,5 +1,14 @@
-/*
+/**
+ * ==============
  * Project config
+ * ==============
+ */
+const useBrowserSync = true;
+const devURL = 'http://kuki-accordion.local/';
+/**
+ * ==================
+ * End Project config
+ * ==================
  */
 
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -14,6 +23,26 @@ let pluginArray = [
     filename: 'dist/style.css',
   })
 ];
+
+if (useBrowserSync) {
+  const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+  pluginArray.push(
+      new BrowserSyncPlugin({
+            host: 'localhost',
+            port: 3000,
+            proxy: devURL,
+            files: [
+              "dist/*.css",
+              "dist/*.js"
+            ]
+          },
+          {
+            injectCss: true,
+            reload: false
+          }
+      )
+  );
+}
 
 module.exports = function(env) {
 
@@ -39,7 +68,7 @@ module.exports = function(env) {
       minimizer: minimizer
     },
     entry: [
-      './src/Accordion.js',
+      './index.js',
       './src/style.scss'
     ],
     output: {
