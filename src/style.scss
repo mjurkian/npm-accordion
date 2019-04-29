@@ -1,0 +1,15 @@
+.accordion {
+  position: relative;
+  display: block;
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s;
+
+
+  &.active {
+    max-height: fit-content;
+  }
+}

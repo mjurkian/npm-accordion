@@ -1,0 +1,14 @@
+
+.idea
+
+# Folders to ignore
+
+node_modules
+dist
+
+# Build assets
+
+webpack.config.js
+postcss.config.js
+package-lock.json
+

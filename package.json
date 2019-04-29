@@ -1,0 +1,41 @@
+{
+  "name": "@kukidigital/kuki-accordion",
+  "version": "1.1.0",
+  "description": "This is a BETA version",
+  "main": "src/Accordion.js",
+  "scripts": {
+    "build": "webpack --progress -p --env.NODE_ENV=production",
+    "build-dev": "webpack --progress -p --env.NODE_ENV=local",
+    "watch": "webpack --watch --progress -p --env.NODE_ENV=local"
+  },
+  "keywords": [
+    "accordion"
+  ],
+  "author": "mj",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "autoprefixer": "^8.0.0",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.26.4",
+    "browser-sync-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.1",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jss": "^9.8.7",
+    "jss-preset-default": "^4.5.0"
+  }
+}
