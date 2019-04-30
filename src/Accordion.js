@@ -4,6 +4,9 @@ const KukiAccordion = (() => {
 
     let Accordion;
     let Panel;
+    let options;
+
+
 
     /* =========== private methods =========== */
 
@@ -22,6 +25,8 @@ const KukiAccordion = (() => {
 
         }
     }
+
+
 
     function removeActive() {
         for (let i = 0; i < Accordion.length; i++) {
@@ -53,7 +58,11 @@ const KukiAccordion = (() => {
                 // Accordion[i].classList.remove('active');
                 // Accordion[i].nextElementSibling.style.maxHeight = null;
 
-                closeAccordion(Accordion[i]);
+                const classList = Array.from(Accordion[i].classList);
+
+                if (classList.indexOf('active') !== -1) {
+                    closeAccordion(Accordion[i]);
+                }
             }
 
             // open
@@ -67,32 +76,48 @@ const KukiAccordion = (() => {
      * @param element {Element}
      */
     function openAccordion(element) {
+        console.log('opening accordion');
         element.classList.add('active');
         const panel = element.nextElementSibling;
         const panelHeight = panel.scrollHeight;
+        const duration = (panelHeight / 100) * 300;
 
         panel.animate([
             {maxHeight: getComputedStyle(panel).maxHeight},
             {maxHeight: panelHeight + 'px'}
-        ], 5000);
+        ],{
+            duration,
+            fill: "forwards",
+            easing: "ease-in-out"
+        });
     }
 
     /**
      * @param element {Element}
      */
     function closeAccordion(element) {
+        console.log('closing accordion');
         element.classList.remove('active');
         const panel = element.nextElementSibling;
+        let panelHeight = getComputedStyle(panel).height;
+        panelHeight = panelHeight.substr(0, panelHeight.length - 2);
+
+        const duration = (panelHeight / 100) * 300;
+        console.log(panelHeight);
 
         panel.animate([
-            {maxHeight: getComputedStyle(panel).maxHeight},
+            {maxHeight: getComputedStyle(panel).height},
             {maxHeight: 0}
-        ],5000);
+        ],{
+            duration,
+            fill: "forwards",
+            easing: "ease-in-out"
+        });
     }
 
     /* =========== public methods =========== */
 
-    function init(options) {
+    function init(customOptions) {
 
         const defaults = {
             accordionClass : 'accordion',
@@ -100,7 +125,9 @@ const KukiAccordion = (() => {
             activeClass : 'active'
         };
 
+        Object.assign(defaults, customOptions, options);
 
+        console.log(options);
 
         cacheDOM();
         setupEventListeners();
@@ -114,3 +141,5 @@ const KukiAccordion = (() => {
 })();
 
 export default KukiAccordion;
+
+
