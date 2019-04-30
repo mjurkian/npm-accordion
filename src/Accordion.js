@@ -30,10 +30,10 @@ const KukiAccordion = (() => {
 
     function removeActive() {
         const {activeClass} = options;
-        for (let i = 0; i < Accordion.length; i++) {
-            Accordion[i].classList.remove(activeClass);
-            Panel[i].classList.remove(activeClass);
-        }
+        // for (let i = 0; i < Accordion.length; i++) {
+        //     Accordion[i].classList.remove(activeClass);
+        //     Panel[i].classList.remove(activeClass);
+        // }
     }
 
     function onClick(event) {
@@ -62,6 +62,8 @@ const KukiAccordion = (() => {
                 // Accordion[i].nextElementSibling.style.maxHeight = null;
                 const classList = Array.from(Accordion[i].classList);
 
+                console.log(classList);
+
                 if (classList.indexOf(activeClass) !== -1) {
                     closeAccordion(Accordion[i]);
                 }
@@ -78,12 +80,12 @@ const KukiAccordion = (() => {
      * @param element {Element}
      */
     function openAccordion(element) {
-        const {activeClass} = options;
+        const {activeClass, speed, easingOption} = options;
         console.log('opening accordion');
         element.classList.add(activeClass);
         const panel = element.nextElementSibling;
         const panelHeight = panel.scrollHeight;
-        const duration = (panelHeight / 100) * 300;
+        const duration = (panelHeight / 100) * speed;
 
         panel.animate([
             {maxHeight: getComputedStyle(panel).maxHeight},
@@ -91,7 +93,7 @@ const KukiAccordion = (() => {
         ], {
             duration,
             fill: "forwards",
-            easing: "ease-in-out"
+            easing: easingOption
         });
     }
 
@@ -99,13 +101,13 @@ const KukiAccordion = (() => {
      * @param element {Element}
      */
     function closeAccordion(element) {
-        const {activeClass} = options;
+        const {activeClass, speed, easingOption} = options;
         const panel = element.nextElementSibling;
 
         let panelHeight = getComputedStyle(panel).height;
         panelHeight = panelHeight.substr(0, panelHeight.length - 2);
 
-        const duration = (panelHeight / 100) * 300;
+        const duration = (panelHeight / 100) * speed;
 
         element.classList.remove(activeClass);
 
@@ -115,7 +117,7 @@ const KukiAccordion = (() => {
         ], {
             duration,
             fill: "forwards",
-            easing: "ease-in-out"
+            easing: easingOption
         });
     }
 
@@ -127,7 +129,9 @@ const KukiAccordion = (() => {
             accordionClass: 'accordion', // Accepts any string
             accordionContentClass: 'panel', // Accepts any string
             activeClass: 'active', // Accepts any string
-            accordionStructure: 'paired' // string 'paired' or 'nested'
+            accordionStructure: 'paired', // string 'paired' or 'nested'
+            speed:  500, // Number - Speed of the animation in ms
+            easingOption: 'ease-in-out' // Accepts string https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing
         };
 
         options = Object.assign(defaults, customOptions);
@@ -147,5 +151,3 @@ const KukiAccordion = (() => {
 })();
 
 export default KukiAccordion;
-
-

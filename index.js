@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //***** Kuki Accordion module *****
 
     Accordion.init({
-        accordionClass: 'test',
-        activeClass: 'show'
+        speed: 500
     });
 
 });
