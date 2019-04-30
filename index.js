@@ -1,4 +1,4 @@
-import KukiAccordion from './src/Accordion';
+import Accordion from './src/Accordion';
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -6,8 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //***** Kuki Accordion module *****
 
-
-    KukiAccordion.init();
+    Accordion.init({
+        accordionClass: 'test',
+        activeClass: 'show'
+    });
 
 });
 
