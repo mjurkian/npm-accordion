@@ -1,13 +1,19 @@
 .accordion {
-  position: relative;
-  display: block;
+  //position: relative;
+ // display: block;
 }
-.panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.4s;
 
-  &.active {
-    max-height: fit-content;
-  }
+.panel, .accordion__content {
+ // max-height: 0;
+  // overflow: hidden;
+ // transition: all 0.4s;
+
+  //&.active {
+  //  max-height: fit-content;
+  //}
+}
+
+
+.no-js {
+
 }

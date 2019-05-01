@@ -6,9 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //***** Kuki Accordion module *****
 
-    Accordion.init({
-        speed: 500
-    });
+    Accordion.init();
 
 });
 
