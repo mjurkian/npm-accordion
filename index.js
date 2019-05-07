@@ -6,7 +6,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //***** Kuki Accordion module *****
 
-    Accordion.init();
+    Accordion.init({
+        accordionClass: 'accordion',
+        accordionContentClass: 'panel',
+        activeClass: 'active',
+        accordionStructure: 'paired',
+        easingOption: 'ease-in-out',
+        duration: false,
+        speed: 200
+    });
 
 });
 

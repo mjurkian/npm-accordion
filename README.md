@@ -1,6 +1,6 @@
 ## Accordion
 
-> KUKI Digital
+> KUKI Ventures
 
 Super-smooth Vanilla JS accordion with no external dependencies.
 
@@ -46,6 +46,20 @@ import Accordion from '@kukidigital/kuki-accordion';
 Accordion.init();
 ```
 
+> This is how it looks with [Options](#options).
+
+```js
+Accordion.init({
+        accordionClass: 'accordion', 
+        accordionContentClass: 'panel', 
+        activeClass: 'active',
+        accordionStructure: 'paired', 
+        easingOption: 'ease-in-out',
+        duration: false, 
+        speed: 500 
+    });
+```
+
 > Layout your markup like this: ```'paired'```. Classes = ```accordion``` and ```panel``` required - changeable in - [Options](#options).
 
 ```html
@@ -71,12 +85,6 @@ Accordion.init();
 
 ```
 
-> Polyfill for older browsers (IE11, Edge, Safari) - ```(Object.assign, Array.from, WebAnimations)```
-
-```html
-<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=Object.assign%2CArray.from%2CWebAnimations"></script>
-```
-
 
 > Output
 
@@ -91,8 +99,8 @@ Options
 | **accordionContentClass**                       | String   | `"panel"`        | Accordion content Class                |
 | **activeClass**                                 | String   | `"active"`       | CSS class marking an accordion as enabled                     |
 | **accordionStructure**                           | String   | `paired`         | 'paired' or 'nested'   |
-| [**easingOption**](https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing)   | String   | `ease-in-out`              | The EffectTiming easing property                             |
-| **duration**                                     | Boolean/number  | `false`          | {boolean/number} if false, then we use speed to dictate animation duration, if a number is supplied, then we use this as the duration for ALL accordions, regardless of height         |
+| [**easingOption**](https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing) - click   | String   | `ease-in-out`              | The EffectTiming easing property                             |
+| **duration**                                     | Boolean/number  | `false`          | {boolean/number} if false, then we use speed to dictate animation duration (ms), if a number is supplied, then we use this as the duration for ALL accordions, regardless of height         |
 | **speed**              | Number  | `500`          | Speed of the animation in ms        |
 
 
@@ -102,14 +110,14 @@ Options
 
 | Browser       | Device/OS | Version |
 | ------------- | --------- | ------- |
-| Mobile Safari | iOS       | Latest  |
-| Chrome        | Android   | Latest  |
-| IE            | Desktop   | 11+ (it only opens)       |
-| MS Edge       | Desktop   | 15+     |
-| Chrome        | Desktop   | 50+     |
-| Firefox       | Desktop   | 48+     |
+| Mobile Safari | iOS       | 10+     |
+| Chrome        | Android   | 4.4+    |
+| IE            | Desktop   | 11+ (in 95%)       |
+| MS Edge       | Desktop   | 17+     |
+| Chrome        | Desktop   | 47+     |
+| Firefox       | Desktop   | 47+     |
 | Opera         | Desktop   | 37+     |
-| Safari        | OSX       | Latest  |
+| Safari        | OSX       | 10+     |
 
 
 ## See Also

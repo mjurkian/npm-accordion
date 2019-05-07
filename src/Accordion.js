@@ -1,3 +1,5 @@
+import './polyfill/arrayFrom';
+
 const KukiAccordion = (() => {
 
     /* =========== variables =========== */
@@ -90,14 +92,12 @@ const KukiAccordion = (() => {
 
         const keyframeDuration = duration ? duration : (panelHeight / 100) * speed;
 
-        panel.animate([
-            {maxHeight: getComputedStyle(panel).maxHeight},
-            {maxHeight: panelHeight + 'px'}
-        ], {
-            duration: keyframeDuration,
-            fill: "forwards",
-            easing: easingOption
-        });
+        panel.setAttribute('style', `
+            overflow: hidden;
+            transition: height ${keyframeDuration}ms ${easingOption};
+            height: ${panelHeight}px;
+        `);
+
     }
 
     /**
@@ -120,14 +120,12 @@ const KukiAccordion = (() => {
 
         element.classList.remove(activeClass);
 
-        panel.animate([
-            {maxHeight: getComputedStyle(panel).height},
-            {maxHeight: 0}
-        ], {
-            duration: keyframeDuration,
-            fill: "forwards",
-            easing: easingOption
-        });
+        panel.setAttribute('style', `
+            overflow: hidden;
+            transition: height ${keyframeDuration}ms ${easingOption};
+            height: 0px;
+        `);
+
     }
 
     /* =========== public methods =========== */
