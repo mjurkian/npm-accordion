@@ -1,6 +1,6 @@
 {
   "name": "@kukidigital/kuki-accordion",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "description": "This is a BETA version",
   "main": "src/Accordion.js",
   "scripts": {
