@@ -11,14 +11,14 @@ const devURL = 'http://kuki-accordion.local/';
  * ==================
  */
 
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 
-let pluginArray = [
+const pluginArray = [
   new MiniCssExtractPlugin({
     filename: 'dist/style.css',
   })
@@ -27,25 +27,24 @@ let pluginArray = [
 if (useBrowserSync) {
   const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
   pluginArray.push(
-      new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 3000,
-            proxy: devURL,
-            files: [
-              "dist/*.css",
-              "dist/*.js"
-            ]
-          },
-          {
-            injectCss: true,
-            reload: false
-          }
-      )
+    new BrowserSyncPlugin({
+        host: 'localhost',
+        port: 3000,
+        proxy: devURL,
+        files: [
+          'dist/*.css',
+          'dist/*.js'
+        ]
+      },
+      {
+        injectCss: true,
+        reload: false
+      }
+    )
   );
 }
 
-module.exports = function(env) {
-
+module.exports = function (env) {
   let minimizer;
   const minimize = env.NODE_ENV === 'production';
 
@@ -75,18 +74,18 @@ module.exports = function(env) {
       filename: 'dist/Accordion.js',
       path: path.resolve(__dirname, '')
     },
-    devtool: "source-map",
+    devtool: 'source-map',
     module: {
       rules: [
         {
           test: /\.(css|scss)$/,
           exclude: /node_modules/,
-          include: path.resolve(__dirname, "src/"),
+          include: path.resolve(__dirname, 'src/'),
           use: [
-            {loader: MiniCssExtractPlugin.loader,},
-            {loader: 'css-loader', options: {sourceMap: true, url: false}},
-            {loader: 'postcss-loader', options: {sourceMap: true}},
-            {loader: 'sass-loader', options: {sourceMap: true}}
+            { loader: MiniCssExtractPlugin.loader, },
+            { loader: 'css-loader', options: { sourceMap: true, url: false } },
+            { loader: 'postcss-loader', options: { sourceMap: true } },
+            { loader: 'sass-loader', options: { sourceMap: true } }
           ]
         },
         {
@@ -99,6 +98,5 @@ module.exports = function(env) {
       ]
     },
     plugins: pluginArray
-  }
-
+  };
 };
