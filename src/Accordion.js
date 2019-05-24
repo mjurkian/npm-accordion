@@ -1,19 +1,16 @@
 import './polyfill/arrayFrom';
 
 const KukiAccordion = (() => {
-
   /* =========== variables =========== */
 
   let Accordion;
-  let Panel;
   let options;
 
   /* =========== private methods =========== */
 
   function cacheDOM() {
-    const { accordionClass, accordionContentClass } = options;
-    Accordion = document.querySelectorAll('.' + accordionClass);
-    Panel = document.querySelectorAll('.' + accordionContentClass);
+    const { accordionClass } = options;
+    Accordion = document.querySelectorAll(`.${accordionClass}`);
   }
 
   /**
@@ -33,13 +30,11 @@ const KukiAccordion = (() => {
     const panelHeight = panel.scrollHeight;
 
     const keyframeDuration = duration ? duration : (panelHeight / 100) * speed;
-
     panel.setAttribute('style', `
             overflow: hidden;
             transition: height ${keyframeDuration}ms ${easingOption};
             height: ${panelHeight}px;
         `);
-
   }
 
   /**
@@ -81,14 +76,12 @@ const KukiAccordion = (() => {
       classClicked = targetClicked.classList;
     }
 
-    const targetClass = targetClicked.classList;
-
-    if (targetClass.value === accordionClass + ' ' + activeClass) {
+    const targetClass = targetClicked.className;
+    if (targetClass === `${accordionClass} ${activeClass}`) {
       closeAccordion(targetClicked);
     } else {
       for (let i = 0; i < Accordion.length; i += 1) {
         const classList = Array.from(Accordion[i].classList);
-
         if (classList.indexOf(activeClass) !== -1) {
           closeAccordion(Accordion[i]);
         }
@@ -129,7 +122,6 @@ const KukiAccordion = (() => {
   function init(customOptions) {
     const defaults = {
       accordionClass: 'accordion', // Accepts any string
-      accordionContentClass: 'panel', // Accepts any string
       activeClass: 'active', // Accepts any string
       accordionStructure: 'paired', // string 'paired' or 'nested'
       easingOption: 'ease-in-out', // Accepts string https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing,

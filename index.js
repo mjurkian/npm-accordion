@@ -1,11 +1,8 @@
 import Accordion from './src/Accordion';
 
-
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', () => {
   // console.log('Your document is ready!');
-
-  //***** Kuki Accordion module *****
-
+  // ***** Kuki Accordion module *****
   Accordion.init({
     accordionClass: 'accordion',
     accordionContentClass: 'panel',
@@ -15,6 +12,5 @@ document.addEventListener("DOMContentLoaded", function () {
     duration: false,
     speed: 200
   });
-
 });
 

@@ -60,7 +60,7 @@ Accordion.init({
     });
 ```
 
-> Layout your markup like this: ```'paired'```. Classes = ```accordion``` and ```panel``` required - changeable in - [Options](#options).
+> Layout your markup like this: ```'paired'```. Classes = ```accordion``` required - changeable in - [Options](#options).
 
 ```html
 <a class='accordion'>
@@ -96,7 +96,6 @@ Options
 | Name                                             | Type     | Default          | Description                                                     |
 |--------------------------------------------------|----------|------------------|-----------------------------------------------------------------|
 | **accordionClass**                             | String   | `"accordion"`    | Accordion Class                     |
-| **accordionContentClass**                       | String   | `"panel"`        | Accordion content Class                |
 | **activeClass**                                 | String   | `"active"`       | CSS class marking an accordion as enabled                     |
 | **accordionStructure**                           | String   | `paired`         | 'paired' or 'nested'   |
 | [**easingOption**](https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing) - click   | String   | `ease-in-out`              | The EffectTiming easing property                             |
@@ -112,7 +111,7 @@ Options
 | ------------- | --------- | ------- |
 | Mobile Safari | iOS       | 10+     |
 | Chrome        | Android   | 4.4+    |
-| IE            | Desktop   | 11+ (in 95%)       |
+| IE            | Desktop   | 11+     |
 | MS Edge       | Desktop   | 17+     |
 | Chrome        | Desktop   | 47+     |
 | Firefox       | Desktop   | 47+     |
