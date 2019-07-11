@@ -4,6 +4,7 @@ const KukiAccordion = (() => {
   /* =========== variables =========== */
 
   let Accordion;
+  let AccordionSub;
   let options;
 
   /* =========== private methods =========== */
@@ -11,6 +12,7 @@ const KukiAccordion = (() => {
   function cacheDOM() {
     const { accordionClass } = options;
     Accordion = document.querySelectorAll(`.${accordionClass}`);
+    AccordionSub = document.querySelectorAll('.accordion-sub');
   }
 
   /**
@@ -65,39 +67,57 @@ const KukiAccordion = (() => {
   }
 
   function onClick(event) {
-    event.preventDefault();
+    //event.preventDefault();
     const { accordionClass, activeClass } = options;
 
-    let targetClicked = event.target;
-    let classClicked = targetClicked.classList;
+    // let targetClicked = event.target;
+    // let classClicked = targetClicked.classList;
 
-    while ((classClicked[0] !== accordionClass)) {
-      targetClicked = targetClicked.parentElement;
-      classClicked = targetClicked.classList;
+    // while ((classClicked[0] !== accordionClass)) {
+    //   targetClicked = targetClicked.parentElement;
+    //   classClicked = targetClicked.classList;
+    // }
+
+    const targetClass = event.classList;
+
+    let closeTarget = Accordion;
+
+    if (targetClass.contains('accordion-sub')) {
+      closeTarget = AccordionSub;
     }
 
-    const targetClass = targetClicked.className;
-    if (targetClass === `${accordionClass} ${activeClass}`) {
-      closeAccordion(targetClicked);
+    if (targetClass.contains(`${activeClass}`) && targetClass.contains(`${accordionClass}`)) {
+      closeAccordion(event);
     } else {
-      for (let i = 0; i < Accordion.length; i += 1) {
-        const classList = Array.from(Accordion[i].classList);
+      for (let i = 0; i < closeTarget.length; i += 1) {
+        const classList = Array.from(closeTarget[i].classList);
         if (classList.indexOf(activeClass) !== -1) {
-          closeAccordion(Accordion[i]);
+          closeAccordion(closeTarget[i]);
         }
       }
-      openAccordion(targetClicked);
+      openAccordion(event);
     }
   }
 
   function setupEventListeners() {
+    // console.log(AccordionSub);
+
     for (let i = 0; i < Accordion.length; i += 1) {
       Accordion[i].addEventListener('click', (event) => {
         event.stopPropagation();
         event.preventDefault();
-        onClick(event);
+        onClick(event.currentTarget);
       });
     }
+
+    for (let i = 0; i < AccordionSub.length; i += 1) {
+      AccordionSub[i].addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        onClick(event.currentTarget);
+      });
+    }
+
   }
 
   function noJS() {
@@ -113,6 +133,19 @@ const KukiAccordion = (() => {
       panelOverflow.style.overflow = 'hidden';
 
       closeAccordion(Accordion[i]);
+    }
+    // closing Accordion sub
+
+    for (let i = 0; i < AccordionSub.length; i += 1) {
+      if (accordionStructure === 'nested') {
+        panelOverflow = AccordionSub[i].lastElementChild;
+      } else {
+        panelOverflow = AccordionSub[i].nextElementSibling;
+      }
+
+      panelOverflow.style.overflow = 'hidden';
+
+      closeAccordion(AccordionSub[i]);
     }
   }
 
