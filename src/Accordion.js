@@ -4,7 +4,7 @@ const KukiAccordion = (() => {
   /* =========== variables =========== */
 
   let Accordion;
-  let AccordionSub;
+  let Filter;
   let options;
 
   /* =========== private methods =========== */
@@ -12,7 +12,7 @@ const KukiAccordion = (() => {
   function cacheDOM() {
     const { accordionClass } = options;
     Accordion = document.querySelectorAll(`.${accordionClass}`);
-    AccordionSub = document.querySelectorAll('.accordion-sub');
+    Filter = document.querySelectorAll('.accordion-filter');
   }
 
   /**
@@ -52,6 +52,7 @@ const KukiAccordion = (() => {
       panel = element.nextElementSibling;
     }
 
+
     let panelHeight = getComputedStyle(panel).height;
     panelHeight = panelHeight.substr(0, panelHeight.length - 2);
 
@@ -67,8 +68,8 @@ const KukiAccordion = (() => {
   }
 
   function onClick(event) {
-    //event.preventDefault();
-    const { accordionClass, activeClass } = options;
+    // event.preventDefault();
+    const { filterClass, filterClose, accordionClass, activeClass } = options;
 
     // let targetClicked = event.target;
     // let classClicked = targetClicked.classList;
@@ -81,18 +82,29 @@ const KukiAccordion = (() => {
     const targetClass = event.classList;
 
     let closeTarget = Accordion;
+    let closeClass = accordionClass;
 
-    if (targetClass.contains('accordion-sub')) {
-      closeTarget = AccordionSub;
+    if (targetClass.contains(`${filterClass}`)) {
+      closeTarget = Filter;
+      closeClass = `${filterClass}`;
     }
 
-    if (targetClass.contains(`${activeClass}`) && targetClass.contains(`${accordionClass}`)) {
+    if (targetClass.contains(`${activeClass}`) && targetClass.contains(closeClass)) {
       closeAccordion(event);
     } else {
-      for (let i = 0; i < closeTarget.length; i += 1) {
-        const classList = Array.from(closeTarget[i].classList);
-        if (classList.indexOf(activeClass) !== -1) {
-          closeAccordion(closeTarget[i]);
+      if (targetClass.contains(`${filterClass}`) && filterClose === true) {
+        for (let i = 0; i < closeTarget.length; i += 1) {
+          const classList = Array.from(closeTarget[i].classList);
+          if (classList.indexOf(activeClass) !== -1) {
+            closeAccordion(closeTarget[i]);
+          }
+        }
+      } else if (targetClass.contains(`${accordionClass}`)) {
+        for (let i = 0; i < closeTarget.length; i += 1) {
+          const classList = Array.from(closeTarget[i].classList);
+          if (classList.indexOf(activeClass) !== -1) {
+            closeAccordion(closeTarget[i]);
+          }
         }
       }
       openAccordion(event);
@@ -100,8 +112,6 @@ const KukiAccordion = (() => {
   }
 
   function setupEventListeners() {
-    // console.log(AccordionSub);
-
     for (let i = 0; i < Accordion.length; i += 1) {
       Accordion[i].addEventListener('click', (event) => {
         event.stopPropagation();
@@ -110,14 +120,13 @@ const KukiAccordion = (() => {
       });
     }
 
-    for (let i = 0; i < AccordionSub.length; i += 1) {
-      AccordionSub[i].addEventListener('click', (event) => {
+    for (let i = 0; i < Filter.length; i += 1) {
+      Filter[i].addEventListener('click', (event) => {
         event.stopPropagation();
         event.preventDefault();
         onClick(event.currentTarget);
       });
     }
-
   }
 
   function noJS() {
@@ -134,18 +143,19 @@ const KukiAccordion = (() => {
 
       closeAccordion(Accordion[i]);
     }
+
     // closing Accordion sub
 
-    for (let i = 0; i < AccordionSub.length; i += 1) {
+    for (let i = 0; i < Filter.length; i += 1) {
       if (accordionStructure === 'nested') {
-        panelOverflow = AccordionSub[i].lastElementChild;
+        panelOverflow = Filter[i].lastElementChild;
       } else {
-        panelOverflow = AccordionSub[i].nextElementSibling;
+        panelOverflow = Filter[i].nextElementSibling;
       }
 
       panelOverflow.style.overflow = 'hidden';
 
-      closeAccordion(AccordionSub[i]);
+      closeAccordion(Filter[i]);
     }
   }
 
@@ -154,6 +164,8 @@ const KukiAccordion = (() => {
 
   function init(customOptions) {
     const defaults = {
+      filterClass: 'accordion-filter', // Accepts any string
+      filterClose: false, // {boolean}
       accordionClass: 'accordion', // Accepts any string
       activeClass: 'active', // Accepts any string
       accordionStructure: 'paired', // string 'paired' or 'nested'
@@ -172,6 +184,7 @@ const KukiAccordion = (() => {
   /* =========== export public methods and variables =========== */
 
   return { init };
-})();
+})
+();
 
 export default KukiAccordion;

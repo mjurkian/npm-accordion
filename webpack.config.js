@@ -29,7 +29,7 @@ if (useBrowserSync) {
   pluginArray.push(
     new BrowserSyncPlugin({
         host: 'localhost',
-        port: 3000,
+        port: 3003,
         proxy: devURL,
         files: [
           'dist/*.css',
