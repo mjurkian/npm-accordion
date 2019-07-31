@@ -95,6 +95,8 @@ Options
 ----------------------------------------------------------------
 | Name                                             | Type     | Default          | Description                                                     |
 |--------------------------------------------------|----------|------------------|-----------------------------------------------------------------|
+| **filterClass**                             | String   | `"accordion-filter"`    | Filter Class                     |
+| **filterClose**                             | Boolean   | `false`    | Closing the previous ones                     |
 | **accordionClass**                             | String   | `"accordion"`    | Accordion Class                     |
 | **activeClass**                                 | String   | `"active"`       | CSS class marking an accordion as enabled                     |
 | **accordionStructure**                           | String   | `paired`         | 'paired' or 'nested'   |

@@ -10,9 +10,9 @@ const KukiAccordion = (() => {
   /* =========== private methods =========== */
 
   function cacheDOM() {
-    const { accordionClass } = options;
+    const { accordionClass, filterClass } = options;
     Accordion = document.querySelectorAll(`.${accordionClass}`);
-    Filter = document.querySelectorAll('.accordion-filter');
+    Filter = document.querySelectorAll(`.${filterClass}`);
   }
 
   /**
@@ -68,17 +68,7 @@ const KukiAccordion = (() => {
   }
 
   function onClick(event) {
-    // event.preventDefault();
     const { filterClass, filterClose, accordionClass, activeClass } = options;
-
-    // let targetClicked = event.target;
-    // let classClicked = targetClicked.classList;
-
-    // while ((classClicked[0] !== accordionClass)) {
-    //   targetClicked = targetClicked.parentElement;
-    //   classClicked = targetClicked.classList;
-    // }
-
     const targetClass = event.classList;
 
     let closeTarget = Accordion;
@@ -159,7 +149,6 @@ const KukiAccordion = (() => {
     }
   }
 
-
   /* =========== public methods =========== */
 
   function init(customOptions) {
@@ -184,7 +173,6 @@ const KukiAccordion = (() => {
   /* =========== export public methods and variables =========== */
 
   return { init };
-})
-();
+})();
 
 export default KukiAccordion;
