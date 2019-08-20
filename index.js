@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     accordionStructure: 'paired',
     easingOption: 'ease-in-out',
     duration: false,
-    speed: 200
+    speed: 500
   });
 });
 

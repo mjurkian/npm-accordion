@@ -66,9 +66,13 @@ Accordion.init({
 <a class='accordion'>
     <h3>Accordion Title</h3>
 </a>
-<div class='panel'>
-    <p>Lorem ipsum</p>
+<div class="panel">
+    <h5 class="view-all">View All</h5>
+    <div>
+        <p>Lorem ipsum</p>
+    </div>
 </div>
+
 ```
 
 > Layout your markup like this: ```'nested'```. Class = ```accordion``` required - changeable in - [Options](#options).
@@ -97,6 +101,8 @@ Options
 |--------------------------------------------------|----------|------------------|-----------------------------------------------------------------|
 | **filterClass**                             | String   | `"accordion-filter"`    | Filter Class                     |
 | **filterClose**                             | Boolean   | `false`    | Closing the previous ones                     |
+| **filterHeight**                             | Number   | `200`    | Limited height                    |
+| **viewAllClass**                             | String   | `"view-all"`    | Opens full height                     |
 | **accordionClass**                             | String   | `"accordion"`    | Accordion Class                     |
 | **activeClass**                                 | String   | `"active"`       | CSS class marking an accordion as enabled                     |
 | **accordionStructure**                           | String   | `paired`         | 'paired' or 'nested'   |
