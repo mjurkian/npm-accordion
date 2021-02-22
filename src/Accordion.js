@@ -1,126 +1,91 @@
-import './polyfill/arrayFrom';
+//import "./polyfill/arrayFrom";
 
-const KukiAccordion = (() => {
-  /* =========== variables =========== */
-
-  let Accordion;
-  let Filter;
+const Accordion = (() => {
+  const DOM = {};
   let options;
-  let showAll;
 
-  /* =========== private methods =========== */
-
-  function cacheDOM() {
-    const { accordionClass, filterClass, viewAllClass } = options;
-    Accordion = document.querySelectorAll(`.${accordionClass}`);
-    Filter = document.querySelectorAll(`.${filterClass}`);
-    showAll = document.querySelectorAll(`.${viewAllClass}`);
-
-
-  }
+  const cacheDOM = () => {
+    const { accordionClass, accordionTrigger } = options;
+    DOM.Accordion = document.getElementsByClassName(`${accordionClass}`);
+    DOM.triggers = document.getElementsByClassName(`${accordionTrigger}`);
+  };
 
   /**
    * @param element {Element}
    */
-  function openAccordion(element) {
-    const { activeClass, filterHeight, speed, easingOption, accordionStructure, duration, viewAllClass } = options;
-    element.classList.add(activeClass);
-    let panel;
+  const closeAccordion = (element) => {
+    const { activeClass, speed, easingOption, duration } = options;
 
-    if (accordionStructure === 'nested') {
-      panel = element.lastElementChild;
-    } else {
-      panel = element.nextElementSibling;
-    }
+    let buttons = element.lastElementChild.getElementsByTagName("button");
+    let links = element.lastElementChild.getElementsByTagName("a");
 
-    let panelHeight = panel.scrollHeight;
+    element.classList.remove(activeClass);
 
-    if (element.nextElementSibling.getElementsByClassName(`${viewAllClass}`)[0]) {
-      if (panelHeight < filterHeight) {
-        panelHeight = panel.scrollHeight;
-      } else {
-        panelHeight = filterHeight;
-      }
-    }
-
-    const keyframeDuration = duration ? duration : (panelHeight / 100) * speed;
-    panel.setAttribute('style', `
-            overflow: hidden;
-            transition: height ${keyframeDuration}ms ${easingOption};
-            height: ${panelHeight}px;
-        `);
-  }
-
-
-  function viewAll(element) {
-    const { speed, easingOption, duration } = options;
-
-    const panel = element.parentElement;
-    const panelHeight = panel.scrollHeight;
-    const keyframeDuration = duration ? duration : (panelHeight / 100) * speed;
-
-    console.log(panel)
-
-    panel.setAttribute('style', `
-            overflow: hidden;
-            transition: height ${keyframeDuration}ms ${easingOption};
-            height: ${panelHeight}px;
-        `);
-  }
-
-
-  /**
-   * @param element {Element}
-   */
-  function closeAccordion(element) {
-    const { activeClass, speed, easingOption, accordionStructure, duration } = options;
-    let panel;
-
-    if (accordionStructure === 'nested') {
-      panel = element.lastElementChild;
-    } else {
-      panel = element.nextElementSibling;
-    }
-
+    const panel = element.lastElementChild;
     let panelHeight = getComputedStyle(panel).height;
     panelHeight = panelHeight.substr(0, panelHeight.length - 2);
 
     const keyframeDuration = duration ? duration : (panelHeight / 100) * speed;
 
-    element.classList.remove(activeClass);
+    panel.setAttribute(
+      "style",
+      `
+      overflow: hidden;
+      transition: height ${keyframeDuration}ms ${easingOption};
+      height: 0;
+      `
+    );
 
-    panel.setAttribute('style', `
-            overflow: hidden;
-            transition: height ${keyframeDuration}ms ${easingOption};
-            height: 0px;
-        `);
-  }
-
-  function onClick(event) {
-    const { filterClass, filterClose, accordionClass, activeClass, viewAllClass } = options;
-    const targetClass = event.classList;
-
-    let closeTarget = Accordion;
-    let closeClass = accordionClass;
-
-    if (targetClass.contains(`${filterClass}`)) {
-      closeTarget = Filter;
-      closeClass = `${filterClass}`;
+    for (let i = 0; i < buttons.length; i += 1) {
+      buttons[i].setAttribute("tabindex", "-1");
     }
 
-    if (targetClass.contains(`${viewAllClass}`)) {
-      viewAll(event);
-    } else if (targetClass.contains(`${activeClass}`) && targetClass.contains(closeClass)) {
+    for (let i = 0; i < links.length; i += 1) {
+      links[i].setAttribute("tabindex", "-1");
+    }
+  };
+
+  const openAccordion = (element) => {
+    const { activeClass, speed, easingOption, duration } = options;
+
+    let buttons = element.lastElementChild.getElementsByTagName("button");
+    let links = element.lastElementChild.getElementsByTagName("a");
+
+    element.classList.add(activeClass);
+
+    const panel = element.lastElementChild;
+    let panelHeight = panel.scrollHeight;
+    const keyframeDuration = duration ? duration : (panelHeight / 100) * speed;
+
+    panel.setAttribute(
+      "style",
+      `
+      overflow: hidden;
+      transition: height ${keyframeDuration}ms ${easingOption};
+      height: ${panelHeight}px;
+      `
+    );
+
+    for (let i = 0; i < buttons.length; i += 1) {
+      buttons[i].setAttribute("tabindex", "0");
+    }
+
+    for (let i = 0; i < links.length; i += 1) {
+      links[i].setAttribute("tabindex", "0");
+    }
+  };
+
+  const onClick = (event) => {
+    const { accordionClass, activeClass } = options;
+    const targetClass = event.classList;
+
+    let closeTarget = DOM.Accordion;
+    let closeClass = accordionClass;
+
+    if (targetClass.contains(`${activeClass}`)) {
       closeAccordion(event);
     } else {
-      if (targetClass.contains(`${filterClass}`) && filterClose === true) {
-        for (let i = 0; i < closeTarget.length; i += 1) {
-          const classList = Array.from(closeTarget[i].classList);
-          if (classList.indexOf(activeClass) !== -1) {
-            closeAccordion(closeTarget[i]);
-          }
-        }
-      } else if (targetClass.contains(`${accordionClass}`)) {
+      if (targetClass.contains(`${accordionClass}`)) {
         for (let i = 0; i < closeTarget.length; i += 1) {
           const classList = Array.from(closeTarget[i].classList);
           if (classList.indexOf(activeClass) !== -1) {
@@ -130,78 +95,75 @@ const KukiAccordion = (() => {
       }
       openAccordion(event);
     }
-  }
+  };
 
-  function setupEventListeners() {
-    for (let i = 0; i < Accordion.length; i += 1) {
-      Accordion[i].addEventListener('click', (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-        onClick(event.currentTarget);
-      });
+  const handleClick = (target) => {
+
+    console.log(target.target)
+    
+    if (target.target.tagName !== 'A') {
+      target.stopPropagation();
+      target.preventDefault();
+      onClick(target.currentTarget);
     }
+  };
 
-    for (let i = 0; i < Filter.length; i += 1) {
-      Filter[i].addEventListener('click', (event) => {
-        event.stopPropagation();
+  const keyDown = (event) => {
+    const { accordionTrigger } = options;
+    let target = event.target;
+    let key = event.which.toString();
+    let ctrlModifier = event.ctrlKey && key.match(/33|34/);
+
+    if (target.classList.contains(`${accordionTrigger}`)) {
+      //   // Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
+      //   // 38 = Up, 40 = Down
+      if (key.match(/38|40/) || ctrlModifier) {
+        let index = Array.prototype.slice.call(DOM.triggers).indexOf(target);
+        let direction = key.match(/34|40/) ? 1 : -1;
+        let length = DOM.triggers.length;
+        let newIndex = (index + length + direction) % length;
+        DOM.triggers[newIndex].focus();
+
         event.preventDefault();
-        onClick(event.currentTarget);
-      });
-    }
-
-    for (let i = 0; i < showAll.length; i += 1) {
-      showAll[i].addEventListener('click', (event) => {
-        event.stopPropagation();
+      } else if (key.match(/35|36/)) {
+        // 35 = End, 36 = Home keyboard operations
+        switch (key) {
+          // Go to first accordion
+          case "36":
+            DOM.triggers[0].focus();
+            break;
+          // Go to last accordion
+          case "35":
+            DOM.triggers[DOM.triggers.length - 1].focus();
+            break;
+        }
         event.preventDefault();
-        onClick(event.currentTarget);
-      });
-    }
-  }
-
-  function noJS() {
-    const { accordionStructure } = options;
-    let panelOverflow;
-    for (let i = 0; i < Accordion.length; i += 1) {
-      if (accordionStructure === 'nested') {
-        panelOverflow = Accordion[i].lastElementChild;
-      } else {
-        panelOverflow = Accordion[i].nextElementSibling;
       }
-
-      panelOverflow.style.overflow = 'hidden';
-
-      closeAccordion(Accordion[i]);
     }
+  };
 
-    // closing Accordion sub
+  const setupEventListeners = () => {
+    for (let i = 0; i < DOM.Accordion.length; i += 1) {
+      DOM.Accordion[i].addEventListener("click", handleClick);
 
-    for (let i = 0; i < Filter.length; i += 1) {
-      if (accordionStructure === 'nested') {
-        panelOverflow = Filter[i].lastElementChild;
-      } else {
-        panelOverflow = Filter[i].nextElementSibling;
-      }
-
-      panelOverflow.style.overflow = 'hidden';
-
-      closeAccordion(Filter[i]);
+      DOM.Accordion[i].addEventListener("keydown", keyDown);
     }
-  }
+  };
 
-  /* =========== public methods =========== */
+  const noJS = () => {
+    for (let i = 0; i < DOM.Accordion.length; i += 1) {
+      closeAccordion(DOM.Accordion[i]);
+    }
+  };
 
-  function init(customOptions) {
+  const init = (customOptions) => {
     const defaults = {
-      filterClass: 'accordion-filter', // Accepts any string
-      filterClose: false, // {boolean}
-      filterHeight: 200, // Number
-      viewAllClass: 'view-all', // Accepts any string
-      accordionClass: 'accordion', // Accepts any string
-      activeClass: 'active', // Accepts any string
-      accordionStructure: 'paired', // string 'paired' or 'nested'
-      easingOption: 'ease-in-out', // Accepts string https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing,
+      accordionClass: "accordion", // Accepts any string
+      accordionTrigger: "accordion-trigger",
+      activeClass: "active", // Accepts any string
+      easingOption: "ease-in-out", // Accepts string https://developer.mozilla.org/en-US/docs/Web/API/EffectTiming/easing,
       duration: false, // {boolean/number}
-      speed: 500 // Number - Speed of the animation in ms
+      speed: 500, // Number - Speed of the animation in ms
     };
 
     options = Object.assign(defaults, customOptions);
@@ -209,11 +171,9 @@ const KukiAccordion = (() => {
     cacheDOM();
     setupEventListeners();
     noJS();
-  }
-
-  /* =========== export public methods and variables =========== */
+  };
 
   return { init };
 })();
 
-export default KukiAccordion;
+export default Accordion;

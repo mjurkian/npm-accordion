@@ -1,6 +1,6 @@
 {
   "name": "@kukidigital/kuki-accordion",
-  "version": "1.1.9",
+  "version": "1.2.14",
   "description": "Super-smooth Accordion",
   "main": "src/Accordion.js",
   "scripts": {
@@ -14,25 +14,24 @@
   "author": "mj",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/plugin-transform-object-assign": "^7.2.0",
-    "@babel/preset-env": "^7.4.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-object-assign": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
     "autoprefixer": "^8.0.0",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^8.1.0",
     "babel-preset-env": "^1.7.0",
-    "browser-sync": "^2.26.4",
+    "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "mini-css-extract-plugin": "^0.5.0",
-    "node-sass": "^4.11.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "node-sass": "^4.13.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "uglifyjs-webpack-plugin": "^2.1.1",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.3.1"
-  },
-  "dependencies": {}
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
 }
