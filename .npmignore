@@ -1,0 +1,26 @@
+.DS_Store
+.idea
+
+# Folders to ignore
+node_modules
+
+# Build assets
+webpack.config.js
+postcss.config.js
+package-lock.json
+package.json
+README.md
+index.html
+index.js
+
+.babelrc
+.editorconfig
+.eslintignore
+.eslintrc.json
+
+
+#css
+src/style.scss
+dist/style.css
+dist/style.css.map
+
