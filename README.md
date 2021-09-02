@@ -1,6 +1,6 @@
 ## Accordion
 
-> KUKI Ventures
+> Namkos
 
 Super-smooth Vanilla JS accordion with no external dependencies
 
