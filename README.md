@@ -23,13 +23,13 @@ Super-smooth Vanilla JS accordion with no external dependencies
 > With [npm](https://npmjs.org/) installed, run
 
 ```shell
-npm i @kukidigital/kuki-accordion
+npm i namkos-accordion
 ```
 
 > To install several modules, chain them like:
 
 ```shell
-npm i @kukidigital/kuki-accordion @kukidigital/kuki-xxx @kukidigital/kuki-yyy
+npm i @namkos/namkos-accordion @namkos/namkos-xxx @namkos/namkos-yyy
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ npm i @kukidigital/kuki-accordion @kukidigital/kuki-xxx @kukidigital/kuki-yyy
 > Include the following file in your project:
 
 ```js
-import Accordion from '@kukidigital/kuki-accordion';
+ import Accordion from 'npm-accordion';
 ```
 
 > Then run an Accordion in your main js file.
@@ -143,5 +143,3 @@ Options
 
 
 ## See Also
-
-- [`Kuki Digital`](https://www.npmjs.com/settings/kukidigital/packages)

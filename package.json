@@ -1,5 +1,5 @@
 {
-  "name": "@kukidigital/kuki-accordion",
+  "name": "@namkos/namkos-accordion",
   "version": "1.2.16",
   "description": "Super-smooth Accordion",
   "main": "src/Accordion.js",

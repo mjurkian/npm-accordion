@@ -4,7 +4,7 @@
  * ==============
  */
 const useBrowserSync = true;
-const devURL = 'http://kuki-accordion.local/';
+const devURL = 'http://namkos-accordion.local/';
 /**
  * ==================
  * End Project config
