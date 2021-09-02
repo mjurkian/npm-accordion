@@ -1,6 +1,6 @@
 {
   "name": "@kukidigital/kuki-accordion",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "Super-smooth Accordion",
   "main": "src/Accordion.js",
   "scripts": {

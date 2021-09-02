@@ -98,9 +98,6 @@ const Accordion = (() => {
   };
 
   const handleClick = (target) => {
-
-    console.log(target.target)
-    
     if (target.target.tagName !== 'A') {
       target.stopPropagation();
       target.preventDefault();
